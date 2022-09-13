@@ -1,14 +1,9 @@
 package pt.isel
 
-import pt.isel.DateUtils.isLeapYear
-import java.time.Year
-import kotlin.jvm.Throws
-
-class NaifDate(day: Int, month: Int, private val year: Int) {
-    
-    private val month : Month = ensureValidMonth(month)
-    
-    private val day = ensureValidDay(day, this.month, this.year)
+class NaifDate(day: Int, month: Int, year: Int) {
+    val year = ensureValidYear(year)
+    val month : Month = ensureValidMonth(month)
+    val day = ensureValidDay(day, this.month, this.year)
     
     fun nextMonth(): Int =
         month.getNextMonth().getNumber()
@@ -16,6 +11,13 @@ class NaifDate(day: Int, month: Int, private val year: Int) {
     fun addDays(days: Int): NaifDate {
         return DateUtils.addDays(days, this.day, this.month, this.year)
     }
+    
+    private fun ensureValidYear(year: Int) =
+        if (year > 0) {
+            year
+        } else {
+            throw IllegalArgumentException("Year must be bigger than 0")
+        }
     
     @Throws(IllegalArgumentException::class)
     private fun ensureValidMonth(month: Int): Month =

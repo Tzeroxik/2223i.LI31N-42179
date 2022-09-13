@@ -33,7 +33,7 @@ enum class Month(private val numberOfDays: Int,
     }
     
     companion object {
-        fun getMonth(month: Int): Month? =
+        fun tryGetMonth(month: Int): Month? =
             if (isValidMonth(month)) {
                 values()[month - 1]
             } else {

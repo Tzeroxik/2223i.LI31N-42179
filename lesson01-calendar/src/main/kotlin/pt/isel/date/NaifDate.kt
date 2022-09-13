@@ -1,6 +1,12 @@
 package pt.isel.date
 
-class NaifDate(val day: Int, val month: Month, val year: Int) {
+import kotlin.jvm.Throws
+
+class NaifDate @Throws(IllegalArgumentException::class) constructor(
+    val day: Int,
+    val month: Month,
+    val year: Int
+) {
     
     init {
         DateUtils.validateYear(year)

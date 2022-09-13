@@ -1,4 +1,4 @@
-package pt.isel
+package pt.isel.date
 
 class NaifDate(val day: Int, val month: Month, val year: Int) {
     
@@ -21,8 +21,16 @@ class NaifDate(val day: Int, val month: Month, val year: Int) {
     }
     
     override fun toString(): String {
-        return "$day-${month.getNumber()}-$year"
+        val paddedDay =
+            DateUtils.dayAsPaddedString(day)
+        
+        val paddedMonth =
+            DateUtils.monthAsPaddedString(month)
+        
+        val paddedYear =
+            DateUtils.yearAsPaddedString(year)
+        
+        return "$paddedDay-$paddedMonth-$paddedYear"
     }
-    
     
 }

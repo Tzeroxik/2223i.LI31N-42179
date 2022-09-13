@@ -1,5 +1,7 @@
 package pt.isel
 
+import pt.isel.date.NaifDate
+
 fun main() {
     println(NaifDate(28, 10, 2022).nextMonth()) // 11
     println(NaifDate(28, 11, 2022).nextMonth()) // 12

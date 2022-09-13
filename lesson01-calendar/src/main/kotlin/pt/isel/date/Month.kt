@@ -1,6 +1,6 @@
-package pt.isel
+package pt.isel.date
 
-import pt.isel.DateUtils.isLeapYear
+import pt.isel.date.DateUtils.isLeapYear
 
 enum class Month(private val numberOfDays: Int,
                  private val numberOfDaysOnLeapYear: Int = numberOfDays) {

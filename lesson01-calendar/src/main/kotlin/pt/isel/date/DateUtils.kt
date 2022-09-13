@@ -1,4 +1,4 @@
-package pt.isel
+package pt.isel.date
 
 object DateUtils {
     
@@ -48,4 +48,13 @@ object DateUtils {
             addDays(updatedDaysToAdd,1, nextMonth, updatedYear)
         }
     }
+    
+    private fun padValueAsString(i: Int, size: Int) =
+        i.toString().padStart(size,'0')
+    
+    fun dayAsPaddedString(day: Int): String = padValueAsString(day, 2)
+    fun monthAsPaddedString(month: Month): String = padValueAsString(month.getNumber(), 2)
+    fun yearAsPaddedString(year: Int): String = padValueAsString(year, 4)
+    
+    
 }

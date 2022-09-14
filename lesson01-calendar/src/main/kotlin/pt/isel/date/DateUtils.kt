@@ -3,7 +3,7 @@ package pt.isel.date
 object DateUtils {
     
     fun isLeapYear(year: Int): Boolean =
-        year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
+        year % 4 == 0 && year % 100 != 0 || year % 400 == 0
     
     @Throws(IllegalArgumentException::class)
     fun validateYear(year: Int) {

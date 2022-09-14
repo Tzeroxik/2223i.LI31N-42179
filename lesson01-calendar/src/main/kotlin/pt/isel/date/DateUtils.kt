@@ -8,20 +8,20 @@ object DateUtils {
     @Throws(IllegalArgumentException::class)
     fun validateYear(year: Int) {
         if (year <= 0) {
-            throw IllegalArgumentException("Year must be bigger than 0")
+            throw IllegalArgumentException("Year (= $year) must be bigger than 0")
         }
     }
     
     @Throws(IllegalArgumentException::class)
     fun mapToMonthAndValidate(month: Int): Month =
         Month.tryGetMonth(month)
-            ?: throw IllegalArgumentException("Month must be between 1 and ${Month.values().size}")
+            ?: throw IllegalArgumentException("Month (= $month) must be between 1 and ${Month.values().size}")
     
     @Throws(IllegalArgumentException::class)
     fun validateDay(day: Int, month: Month, year: Int) {
         val upperBound = month.getNumberOfDays(year)
         if (day !in 1..upperBound) {
-            throw IllegalArgumentException("Day must be between 1 and $upperBound")
+            throw IllegalArgumentException("Day (= $day) must be between 1 and $upperBound")
         }
     }
     
@@ -45,7 +45,7 @@ object DateUtils {
                     year
                 }
             
-            addDays(updatedDaysToAdd,1, nextMonth, updatedYear)
+            addDays(updatedDaysToAdd, 1, nextMonth, updatedYear)
         }
     }
     

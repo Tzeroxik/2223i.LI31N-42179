@@ -1,5 +1,6 @@
 package pt.isel
 
+import pt.isel.mutable.MutableStack
 import kotlin.test.*
 
 class MutableStackTest {
@@ -13,13 +14,13 @@ class MutableStackTest {
         assertFalse (stk.isEmpty())
         assertEquals("ISEL", stk.peek())
     }
-    @Test fun `after poping MutableStack with single item stays empty`() {
+    @Test fun `after popping MutableStack with single item stays empty`() {
         val stk = MutableStack<String>()
         stk.push("ISEL")
         stk.pop()
         assertTrue(stk.isEmpty())
     }
-    @Test fun `poping empty stack throws NoSuchElementException`() {
+    @Test fun `popping empty stack throws NoSuchElementException`() {
         val stk = makeStack<String>()
         assertFailsWith<NoSuchElementException> {
             stk.pop()

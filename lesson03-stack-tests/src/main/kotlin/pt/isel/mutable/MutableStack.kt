@@ -1,4 +1,6 @@
-package pt.isel
+package pt.isel.mutable
+
+import pt.isel.Stack
 
 class MutableStack<T> : Stack<T> {
     private var head : Node<T>? = null

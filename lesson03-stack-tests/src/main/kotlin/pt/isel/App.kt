@@ -1,5 +1,7 @@
 package pt.isel
 
+import pt.isel.mutable.MutableStack
+
 fun main() {
     val stk = makeStack<String>()
     stk.push("ISEL")

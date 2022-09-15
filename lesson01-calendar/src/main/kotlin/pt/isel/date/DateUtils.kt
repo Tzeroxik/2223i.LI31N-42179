@@ -1,16 +1,12 @@
 package pt.isel.date
 
+import kotlin.time.Duration.Companion.milliseconds
+
 object DateUtils {
     
-    fun isLeapYear(year: Int): Boolean =
-        year % 4 == 0 && year % 100 != 0 || year % 400 == 0
-    
     @Throws(IllegalArgumentException::class)
-    fun validateYear(year: Int) {
-        if (year <= 0) {
-            throw IllegalArgumentException("Year (= $year) must be bigger than 0")
-        }
-    }
+    fun validateYear(year: Int): Int =
+        if (year > 0) year else throw IllegalArgumentException("Year (= $year) must be bigger than 0")
     
     @Throws(IllegalArgumentException::class)
     fun mapToMonthAndValidate(month: Int): Month =
@@ -18,36 +14,28 @@ object DateUtils {
             ?: throw IllegalArgumentException("Month (= $month) must be between 1 and ${Month.values().size}")
     
     @Throws(IllegalArgumentException::class)
-    fun validateDay(day: Int, month: Month, year: Int) {
-        val upperBound = month.getNumberOfDays(year)
-        if (day !in 1..upperBound) {
-            throw IllegalArgumentException("Day (= $day) must be between 1 and $upperBound")
+    fun validateDay(day: Int, month: Month, year: Int): Int =
+        month.getNumberOfDays(year).let { upperBound ->
+            if (day in 1..upperBound)
+                day
+            else
+                throw IllegalArgumentException("Day (= $day) must be between 1 and $upperBound")
+        }
+    
+    tailrec fun addDays(daysToAdd: Int, day: Int, month: Month, year: Int) : NaifDate {
+        val numberOfDaysUntilNextMonth = month.getNumberOfDays(year) - day
+        
+        return if(daysToAdd < numberOfDaysUntilNextMonth) {
+            NaifDate(day + daysToAdd, month, year)
+        } else {
+            val nextMonth = month.getNextMonth()
+            val updatedYear = if(nextMonth == Month.January) year + 1 else year
+            addDays(daysToAdd - numberOfDaysUntilNextMonth, 0, nextMonth, updatedYear)
         }
     }
     
-    tailrec fun addDays(daysToAdd: Int, day: Int, month: Month, year: Int) : NaifDate {
-        val numberOfDaysUntilNextMonth =
-            month.getNumberOfDays(year) - day
-        
-        return if(daysToAdd < numberOfDaysUntilNextMonth) {
-            val updatedDays = day + daysToAdd
-            NaifDate(updatedDays, month.getNumber(), year)
-        } else {
-            val updatedDaysToAdd =
-                daysToAdd - numberOfDaysUntilNextMonth - 1
-            
-            val nextMonth = month.getNextMonth()
-            
-            val updatedYear =
-                if (nextMonth == Month.January) {
-                    year + 1
-                } else {
-                    year
-                }
-            
-            addDays(updatedDaysToAdd, 1, nextMonth, updatedYear)
-        }
-    }
+    fun isLeapYear(year: Int): Boolean =
+        year % 4 == 0 && year % 100 != 0 || year % 400 == 0
     
     private fun padValueAsString(i: Int, size: Int) =
         i.toString().padStart(size,'0')

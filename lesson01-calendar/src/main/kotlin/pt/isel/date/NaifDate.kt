@@ -2,7 +2,7 @@ package pt.isel.date
 
 import kotlin.jvm.Throws
 
-class NaifDate @Throws(IllegalArgumentException::class) constructor(
+data class NaifDate @Throws(IllegalArgumentException::class) constructor(
     val day: Int,
     val month: Month,
     val year: Int

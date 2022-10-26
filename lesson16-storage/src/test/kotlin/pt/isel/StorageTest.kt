@@ -51,7 +51,7 @@ class StorageTest {
             override fun write(obj: Board) = obj.serialize()
             override fun parse(input: String) = input.deserializeToBoard()
         }
-        val fs = FileStorage<Int, Board>(folder, serializer) { _ -> BoardRun()}
+        val fs = FileStorage<Int, Board>(folder, serializer) { BoardRun() }
         val board = fs
             .new(dummyId)
             .play(Position(1, 2), Player.CROSS)

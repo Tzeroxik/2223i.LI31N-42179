@@ -1,9 +1,7 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.6.21"
-
-    // Apply the application plugin to add support for building a CLI application in Java.
-    application
+    id("org.jetbrains.kotlin.jvm") version "1.7.20"
+    id("org.jetbrains.compose") version "1.2.1"
 }
 
 repositories {
@@ -12,12 +10,11 @@ repositories {
 }
 
 dependencies {
-    // Mongo
-    implementation("org.litote.kmongo:kmongo:4.7.2")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.1")
-    implementation("com.github.javasync:RxIo:1.2.5")
-    implementation("org.litote.kmongo:kmongo-coroutine:4.7.2")
-
+    implementation(compose.desktop.currentOs)
+    implementation(project(":lesson09-tictactoe-model"))
+    implementation(project(":lesson16-storage"))
+    implementation("io.ktor:ktor-client-core:2.1.3")
+    implementation("io.ktor:ktor-client-cio:2.1.3")
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
@@ -30,11 +27,10 @@ dependencies {
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-
-    testImplementation(project(":lesson09-tictactoe-model"))
 }
 
-application {
-    // Define the main class for the application.
-    mainClass.set("pt.isel.AppKt")
+compose.desktop {
+    application {
+        mainClass = "pt.isel.AppKt"
+    }
 }

@@ -12,26 +12,19 @@ repositories {
 }
 
 dependencies {
-    // Mongo
-    implementation("org.litote.kmongo:kmongo:4.7.2")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.1")
-    implementation("com.github.javasync:RxIo:1.2.5")
-    implementation("org.litote.kmongo:kmongo-coroutine:4.7.2")
+     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-
-    testImplementation(project(":lesson09-tictactoe-model"))
 }
 
 application {

@@ -12,11 +12,14 @@ repositories {
 }
 
 dependencies {
-    // Mongo
+    implementation(project(":lesson09-tictactoe-model"))
+    implementation(project(":lesson12-ui-generic"))
+    implementation(project(":lesson16-storage"))
+
+    // MongoDb driver
     implementation("org.litote.kmongo:kmongo:4.7.2")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.1")
-    implementation("com.github.javasync:RxIo:1.2.5")
-    implementation("org.litote.kmongo:kmongo-coroutine:4.7.2")
+
 
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
@@ -30,11 +33,19 @@ dependencies {
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-
-    testImplementation(project(":lesson09-tictactoe-model"))
 }
 
 application {
     // Define the main class for the application.
-    mainClass.set("pt.isel.AppKt")
+    mainClass.set("pt.isel.ui.AppKt")
+}
+
+tasks.jar {
+    manifest.attributes["Main-Class"] = "pt.isel.ui.AppKt"
+    val dependencies = configurations
+        .runtimeClasspath
+        .get()
+        .map(::zipTree) // OR .map { zipTree(it) }
+    from(dependencies)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
